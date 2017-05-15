@@ -34,6 +34,11 @@ function cloneCleanModel(node)
   if torch.type(node):find('nn.ReLU') then
     clonedNode = nn.ReLU()
   end
+  
+  if torch.type(node):find('nn.SpatialMaxPooling') then
+  	local kW, kH, dW, dH, padW, padH = node.kW, node.kH, node.dW, node.dH, node.padW, node.padH
+    clonedNode = nn.SpatialMaxPooling(kW, kH, dW, dH, padW, padH)
+  end
 
   if torch.type(node):find('nn.SpatialConvolution') then
     local nInputPlane, nOutputPlane, kW, kH, dW, dH, padW, padH= node.nInputPlane, node.nOutputPlane, node.kW, node.kH, node.dW, node.dH, node.padW, node.padH
